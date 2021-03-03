@@ -1,0 +1,3 @@
+    export const BLOG_DATA_REQUEST = "BLOG_DATA_REQUEST"
+    export const BLOG_DATA_SUCCESS = "BLOG_DATA_SUCCESS"
+    export const BLOG_DATA_FAILURE = "BLOG_DATA_FAILURE"
