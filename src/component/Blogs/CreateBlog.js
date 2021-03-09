@@ -23,7 +23,6 @@ function CreateBlog() {
 
     useEffect(() => {
 
-
     }, [])
     const { Option } = Select;
     const showModal = () => {
@@ -56,7 +55,8 @@ function CreateBlog() {
             setConfirmLoading(false);
             onFinish(values)
             dispatch(newBlogApi(blog))
-            
+            setBlog({ ...blog, blogImgSrc: '', blogTitle: '', desc: '', user_id: '' })
+
             onsubmit()
 
         }, 2000);
@@ -104,11 +104,11 @@ function CreateBlog() {
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
             >       <form onSubmit={handleOk}>
-                    <input type="file" onChange={handleChange}></input><br />
+                    <input type="file"  onChange={handleChange}></input><br />
                     <label>Blog-Name :-</label>
-                    <input style={{ width: "75%" }} t type="text" name="blogTitle" onChange={handleInput}></input><br />
+                    <input style={{ width: "75%" }}  value={blog.blogTitle} type="text" name="blogTitle" onChange={handleInput}></input><br />
                     <label>Description :-</label>
-                    <input style={{ width: "75%" }} type="text" name="desc" onChange={handleInput}></input>
+                    <input style={{ width: "75%" }} value={blog.desc} type="text" name="desc" onChange={handleInput}></input>
                     {/* <button type="submit">submit</button>     */}
                 </form>
             </Modal>

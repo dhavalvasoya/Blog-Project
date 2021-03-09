@@ -17,7 +17,7 @@ export const  BlogDataReducer=(state= initialState , action) =>{
             return {
                 ...state,
                 loading:false,
-                user:action.payload,
+                blogData:action.payload,
                 error:""
             }
         case BLOG_DATA_FAILURE :
@@ -25,7 +25,7 @@ export const  BlogDataReducer=(state= initialState , action) =>{
             return {
                 ...state,
                 loading:false,
-                user:[],
+                blogData:[],
                 error:action.payload
             
             }

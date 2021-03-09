@@ -19,8 +19,17 @@ function UpdateProfile() {
     return (
         <div>   
             <SideMenuBar >
-                <h1>update profile</h1>
+                <h1>Your profile</h1>
              <h3>name :- {userProfile.name}</h3>
+             <h3>email :- {userProfile.email}</h3>
+             <h3>phoneNo :- {userProfile.phoneNo}</h3>
+             <h3>course :- {userProfile.course}</h3>
+             <h3>skill :- {userProfile.skill}</h3>
+             <h3>country :- {userProfile.country}</h3>
+             <h3>city :- {userProfile.city}</h3>
+             <h3>address :- {userProfile.address}</h3>
+
+
             </SideMenuBar>
         </div>
     )

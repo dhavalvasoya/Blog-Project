@@ -63,7 +63,7 @@ class SideMenuBar extends React.Component {
                             {this.props.children}
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>Ant Design ©2021 Created by VD</Footer>
+                    <Footer style={{ textAlign: 'center' }}>...🙃 Design ©2021 Created by VD</Footer>
                 </Layout>
             </Layout>
         </>

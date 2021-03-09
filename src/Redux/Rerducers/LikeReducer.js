@@ -28,7 +28,7 @@ export const  LikeReducer=(state= initialState , action) =>{
             return {
                 ...state,
                 loading:false,
-                user:[],
+                likeData:[],
                 error:action.payload
             
             }

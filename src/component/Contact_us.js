@@ -41,7 +41,7 @@ function Contact_us() {
 
     return (<>
         <Navbar />
-        <div style={{ width: "50%" }}>
+        <div style={{ width: "50%" ,marginTop:"20px" }} className="w-70-ns pr4-ns ph2">
             <Col>
                 <Form  {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                     <Form.Item
@@ -88,8 +88,16 @@ function Contact_us() {
                 </Form>
             </Col>
         </div>
-        <div style={{ marginLeft: "435px" }}>
-            <h1>skdjfasdfa</h1>
+        <div style={{ float: 'right', marginTop: '-305px', marginRight: "230px" }} className="w-30-ns ph2">
+            <h2 >contact us</h2>
+            <h4>Address:  240, Level-3, 2th Floor, Royal plaza,<br /> simadagam Road, surat- 365006, gujarat</h4>
+            <h3>Business Hours</h3>
+            <h4>
+                Monday - Friday 9am to 6pm <br />
+                Saturday - 9am to 5pm <br />
+                Sunday - Closed
+            </h4>
+
         </div><div>
             <Map />
         </div>

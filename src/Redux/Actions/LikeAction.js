@@ -2,7 +2,7 @@ import axios from "axios"
 import { LIKE_DELIKE_BLOG_FAILURE, LIKE_DELIKE_BLOG_REQUEST, LIKE_DELIKE_BLOG_SUCCESS } from "../types/LikeType"
 
 
-export const blogDataRequset = () => {
+export const likeRequset = () => {
     return {
         type: LIKE_DELIKE_BLOG_REQUEST
     }
@@ -22,9 +22,10 @@ export const likefailure = error => {
 
 export function likeBlogApi(data) {
        return dispatch => {
-        dispatch(blogDataRequset())
+        dispatch(likeRequset())
         axios.get(`http://localhost:3003/status`)
             .then(res => {
+                // debugger
                 var data1 = res.data
                
                 var userData = data1.find(values => (values.user_id === data.user_id && values.blog_id === data.blog_id)  )
@@ -52,11 +53,12 @@ export function likeBlogApi(data) {
 }
 export function fecthLike(){
     return dispatch => {
-        dispatch(blogDataRequset())
+        dispatch(likeRequset())
+        // debugger    
         axios.get('http://localhost:3003/status')
             .then(res => {
                 var user = res.data 
-                console.log(user);
+                console.log("like action",user);
                 if (user === undefined) {
                     throw (res.error)
                 }

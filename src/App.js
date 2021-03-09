@@ -39,7 +39,7 @@ function App() {
         <Route exact path="/tableformat" component={TableFormat} />
         <Route exact path="/dashboard/dashboardblog" component={DashBoardBlog} />
         <Route component={error} />
-      </Switch>
+      </Switch>   
     </>
   );
 }

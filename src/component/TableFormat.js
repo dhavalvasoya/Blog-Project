@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 function TableFormat() {
     
-    const blogState = useSelector(state => state.BlogDataReducer.user)
+    const blogState = useSelector(state => state.BlogDataReducer.blogData)
     let status = true;
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");

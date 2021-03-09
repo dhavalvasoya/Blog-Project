@@ -15,7 +15,7 @@ export const RegisterReducer = (state = initialState, action) => {
 
         case REGISTER_USERS_SUCCESS:
             console.log("success called");
-            toast.success("Login Success")
+            // toast.success("Login Success")
             return {
                 // ...state,
                 loading: false,

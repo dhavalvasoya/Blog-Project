@@ -18,50 +18,55 @@ function DashBoardBlog() {
         comment: '',
     });
     const [likes, setLike] = useState({
-        user_id: token,
+        user_id: '',
         blog_id: '',
         status: ''
     });
+    const dispatch = useDispatch()
+    const dispatchBlog = useDispatch()
+    const dispatchComment = useDispatch()
+    const dispacthDeleteBlog = useDispatch()
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [modalText, setModalText] = useState('Content of the modal');
     // useEffect(() => {
-       
+
     // }, [])
 
     useEffect(() => {
-        dispatch(fecthLike())   
         dispatchBlog(blogDataApi(token))
-        if(comment.comment===undefined){
+        if (comment.comment === undefined) {
             dispatchComment(userComment(comment))
-            setComment({...comment,blog_id:'',comment:''})
+            setComment({ ...comment, blog_id: '', comment: '' })
         }
+        // dispatch(fecthLike())    
 
         // displayDataAfterUpdate()
     }, [comment.comment])
 
     useEffect(() => {
-        if(likes.status==="like"||likes.status==="dislike"){
+        setTimeout(() => {
+            
+            dispatch(fecthLike())
+        }, 500);
+        if (likes.status === "like" || likes.status === "dislike") {
+            // dispatch(fecthLike())
 
             dispatch(likeBlogApi(likes))
-            setLike({...likes,blog_id: '',status: ''})
+
+            setLike({ ...likes, blog_id: '', status: '' })
         }
     }, [likes.status])
-    const blogState = useSelector(state => state.BlogDataReducer.user)
+    const blogState = useSelector(state => state.BlogDataReducer.blogData)
     const statusState = useSelector(state => state.LikeReducer.likeData)
 
     // console.log('list', blogState);
-    console.log("likereducerdata++++++++ ",statusState , statusState.length);
-    const dispatch = useDispatch()
-    const dispatchBlog = useDispatch()
-    const dispatchComment = useDispatch()
-    const dispacthDeleteBlog = useDispatch()
+    console.log("likereducerdata++++++++ ", statusState, statusState.length);
+  
     // const displayDataAfterUpdate=()=> {
     //     blogState
     // }
 
-    // ==== token part ===
-    console.log(token);
-    <ToastContainer autoClose={2000} />
+
     // ==== comment part ===
     const showModal = (id) => {
         setVisible(true);
@@ -79,7 +84,7 @@ function DashBoardBlog() {
             dispatchComment(userComment(comment))
         }, 2000);
 
-      
+
     };
     const onFinish = (values) => {
         console.log(values);
@@ -96,16 +101,19 @@ function DashBoardBlog() {
         dispacthDeleteBlog(deleteBlog(id))
         // window.location.reload()
     }
-    const statusHandler = (id, Status) =>  setLike({...likes, blog_id: id, status: Status })
-  
-            // dispatch((likeBlogApi(likes)))
-        
-    
+    const statusHandler = (id, Status) => {
+
+        setLike({ ...likes, blog_id: id, status: Status, user_id: token })
+    }
+
+    // dispatch((likeBlogApi(likes)))
+
+
     console.log(likes, "likes");
     console.log("likereducerdata 2", statusState);
 
-   
-  
+
+
     // statusState ? statusState.filter(point => point.blog_id === data.id && point.status === "like").length : 0
 
     let abc = statusState;
@@ -128,16 +136,14 @@ function DashBoardBlog() {
                                             src={data.blogImgSrc}
                                         />
                                     }
-                                    
-                            actions={[
-                            <Badge count={  statusState ? statusState.filter(point => point.blog_id === data.id && point.status === "like").length : 0 }>
-                            <Button type="primary" onClick={() => statusHandler(data.id, "like")} shape="round" icon={<LikeOutlined />} size={"middle"} /></Badge>,
-
-                            <Badge count={ statusState ? statusState.filter(point => point.blog_id === data.id && point.status === "dislike").length : 0 }>
-                            <Button type="primary" onClick={() => statusHandler(data.id, "dislike")} shape="round" icon={<DislikeOutlined />} size={"middle"} /></Badge>,
-                            <Button type="primary" onClick={() => showModal(data.id)} shape="round" icon={<EditOutlined />} size={"middle"} />,
-                            <Button type="primary" onClick={() => removeBlog(data.id)} shape="round" icon={<DeleteOutlined />} size={"middle"} />
-                            ]}
+                                    actions={[
+                                        <Badge count={statusState ? statusState.filter(point =>( point.blog_id === data.id && point.status === "like")).length : 0}>
+                                            <Button type="primary" onClick={() => statusHandler(data.id, "like")} shape="round" icon={<LikeOutlined />} size={"middle"} /></Badge>,
+                                        <Badge count={statusState ? statusState.filter(point => (point.blog_id === data.id && point.status === "dislike")).length : 0}>
+                                            <Button type="primary" onClick={() => statusHandler(data.id, "dislike")} shape="round" icon={<DislikeOutlined />} size={"middle"} /></Badge>,
+                                        <Button type="primary" onClick={() => showModal(data.id)} shape="round" icon={<EditOutlined />} size={"middle"} />,
+                                        <Button type="primary" onClick={() => removeBlog(data.id)} shape="round" icon={<DeleteOutlined />} size={"middle"} />
+                                    ]}
                                 > <Meta key={index}
                                     title={data.blogTitle}
                                     description={data.desc}
@@ -156,7 +162,7 @@ function DashBoardBlog() {
                         confirmLoading={confirmLoading}
                         onCancel={handleCancel}
                     >     <label>comment :- </label>
-                            <input style={{ width: "80%" }} type="text" name="comment" value={comment.values} onChange={handleComment} ></input><br />
+                        <input style={{ width: "80%" }} type="text" name="comment" value={comment.values} onChange={handleComment} ></input><br />
                     </Modal>
                 </div>
 

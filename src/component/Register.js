@@ -7,7 +7,8 @@ import Navbar from '../layout/navbar'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../Redux/Actions/RegisterAction'
 import { Redirect } from 'react-router-dom'
-import {getCountries} from "country-state-picker"
+import { getCountries } from "country-state-picker"
+// import { getStates } from "country-state-picker"
 
 function FormikContainer() {
 
@@ -28,8 +29,11 @@ function FormikContainer() {
         state: '',
     })
     const [submited, setSubmited] = useState(false)
-    const Countrys=  getCountries();
-    console.log(Countrys);
+    const Countrys = getCountries();
+
+    let countrysValue = Countrys.map(data => { return { key: data.name, value: data.name } })
+    console.log(countrysValue);
+
     const checkboxOptions = [
         { key: "HTML", value: "html" },
         { key: "CSS", value: "css" },
@@ -41,16 +45,15 @@ function FormikContainer() {
         { key: 'BCA', value: 'BCA' },
         { key: 'B.B.A', value: 'B.B.A' }
     ]
-    const dropdownOptions = [
-        { key: ' India', value: 'India' },
-        { key: ' australia', value: 'australia' },
-        { key: ' UAE', value: 'UAE' },
-    ]
-    const dropdownOptionsState = [
-        { key: ' gujrat', value: 'gujrat' },
-        { key: ' QueenLand', value: 'QueenLand' },
-        { key: 'dubai ', value: 'dubai' },
-    ]
+
+    const dropdownOptions = countrysValue
+
+    // const dropdownOptionsState = 
+    // [
+    //     { key: ' gujrat', value: 'gujrat' },
+    //     { key: ' QueenLand', value: 'QueenLand' },
+    //     { key: 'dubai ', value: 'dubai' },
+    // ]
     const initialValues = {
         name: '',
         email: '',
@@ -63,8 +66,14 @@ function FormikContainer() {
         course: '',
         city: '',
         country: '',
-        state: '',
+        // state: '',
     }
+    //    let countryCode =  Countrys.map(data => {
+    //        return 
+    //    })
+    //     const Statess = getStates( );
+
+
 
 
     const validationSchema = Yup.object({
@@ -86,7 +95,7 @@ function FormikContainer() {
             .required('Confirm Password is required'),
         course: Yup.string().required("Course required *"),
         country: Yup.string().required("country required *"),
-        state: Yup.string().required("state required *"),
+        // state: Yup.string().required("state required *"),
         address: Yup.string().required("Address required *"),
         city: Yup.string().required("city required *"),
         skill: Yup.array().required('skill Required'),
@@ -95,53 +104,55 @@ function FormikContainer() {
     // console.log(initialValues);
     // const onsubmit = values => console.log(values);
     const onSubmit = (values) => {
-
+        debugger
         setRegisterdata({ values })
-        setSubmited(true)
         console.log(registerdata)
-        submitHandler()
-        return (dispatch(registerUser(values)))
+            
+        console.log(submited);
+        return (
+            dispatch(registerUser(values))
+        )
 
+}
+const submitHandler = () => {
+    debugger
+    if (submited) {
+        return <Redirect to="/login" />
     }
-    const submitHandler = () => {
-       
-        if (submited) {
-            <Redirect to="/login" />
-        }
-    }
+}
 
 
-    // console.log(registerdata);
-    return (
-        <>
-            <Navbar />
-            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-                {
-                    _formik => (
-                        <div className="container">
-                            <Form><br />
-                                <FormikControler control="input" label="Name :-  " name="name" />
-                                <FormikControler control="input" label="Gmail :-  " name="email" type="email" />
-                                <FormikControler control="input" label="password :-  " name="password" type="password" />
-                                <FormikControler control="input" label="confirmPassword :-  " name="confirmPassword" type="password" />
-                                <FormikControler control="input" label="phoneNo :-  " name="phoneNo" type="number" />
-                                <FormikControler control="input" label="pinCode :-  " name="pinCode" type="number" />
-                                <FormikControler control="textarea" label="address  " name="address" type="textarea" />
-                                <FormikControler control='select' label='select a country  :- ' name="country" options={dropdownOptions} />
-                                <FormikControler control='select' label='select a state  :-' name="state" options={dropdownOptionsState} />
-                                <FormikControler control='input' label='select a city  :- ' name="city" />
-                                <FormikControler control='radio' label='course :- ' name='course' options={options} />
-                                <FormikControler control='checkbox' label='skill :- ' name='skill' options={checkboxOptions} />
-                                <button type="submit"  className="btn btn-success">submit</button>
-                                <button type="reset" className="btn btn-secondary"> Reset</button>
-                            </Form>
-                        </div>
-                    )
-                }
-            </Formik>
-        </>
+// console.log(registerdata);
+return (
+    <>
+        <Navbar />
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+            {
+                _formik => (
+                    <div className="container">
+                        <Form><br />
+                            <FormikControler control="input" label="Name :-  " name="name" />
+                            <FormikControler control="input" label="Gmail :-  " name="email" type="email" />
+                            <FormikControler control="input" label="password :-  " name="password" type="password" />
+                            <FormikControler control="input" label="confirmPassword :-  " name="confirmPassword" type="password" />
+                            <FormikControler control="input" label="phoneNo :-  " name="phoneNo" type="number" />
+                            <FormikControler control="input" label="pinCode :-  " name="pinCode" type="number" />
+                            <FormikControler control="textarea" label="address  " name="address" type="textarea" />
+                            <FormikControler control='select' placeHolder="selectCountry" label='select a country  :- ' name="country" options={dropdownOptions} />
+                            {/* <FormikControler control='select' label='select a state  :-' name="state" options={dropdownOptionsState} /> */}
+                            <FormikControler control='input' label='select a city  :- ' name="city" />
+                            <FormikControler control='radio' label='course :- ' name='course' options={options} />
+                            <FormikControler control='checkbox' label='skill :- ' name='skill' options={checkboxOptions} />
+                            <button type="submit" className="btn btn-success">submit</button>
+                            <button type="reset" className="btn btn-secondary"> Reset</button>
+                        </Form>
+                    </div>
+                )
+            }
+        </Formik>
+    </>
 
-    )
+)
 }
 
 export default FormikContainer
