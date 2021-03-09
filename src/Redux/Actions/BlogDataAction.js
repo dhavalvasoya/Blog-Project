@@ -1,6 +1,7 @@
 import {BLOG_DATA_FAILURE, BLOG_DATA_REQUEST, BLOG_DATA_SUCCESS,} from "../types/BlogDataType"
 import  axios  from 'axios'
 
+
 export const blogDataRequset =()=> {
     return{
         type: BLOG_DATA_REQUEST
@@ -26,9 +27,11 @@ export function blogDataApi() {
         axios.get('http://localhost:3003/blogData')
             .then(res => {
                 var user = res.data
+                let token = localStorage.getItem("token")
+               
                 // console.log(user);
                 // console.log(data);
-                // var user1 = user.filter(values => values.user_id===data)
+                var user1 = user.filter(values => values.user_id===token)
                
                 
                 console.log(user);
@@ -36,7 +39,7 @@ export function blogDataApi() {
                     throw (res.error)
                 }
              
-                dispatch(blogDataSuccess(user))
+                dispatch(blogDataSuccess(user1))
                 return res.data;
             }).catch(error => {
                 dispatch(blogDatafailure("error "));

@@ -33,7 +33,7 @@ function DashBoardBlog() {
     // }, [])
 
     useEffect(() => {
-        dispatchBlog(blogDataApi(token))
+        dispatchBlog(blogDataApi())
         if (comment.comment === undefined) {
             dispatchComment(userComment(comment))
             setComment({ ...comment, blog_id: '', comment: '' })
